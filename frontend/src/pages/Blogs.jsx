@@ -9,18 +9,15 @@ const Blogs = () => {
   //   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    // Fetch blogs from the API
     axios
       .get("http://localhost:3001/api/blogs")
       .then((response) => {
-        // Add isFavorite property to each blog
         const blogsWithFavorite = response.data.map((blog) => ({
           ...blog,
           isFavorite: false,
         }));
         setBlogs(blogsWithFavorite);
 
-        // Check if the current blog is in favorites and update the state accordingly
         const storedFavorites =
           JSON.parse(localStorage.getItem("favorites")) || [];
         setBlogs((prevBlogs) =>
@@ -32,7 +29,7 @@ const Blogs = () => {
         );
       })
       .catch((error) => console.error("Error fetching blogs:", error));
-  }, []); // Empty dependency array ensures the effect runs only once
+  }, []);
 
   const handleFavorite = (blogId) => {
     // Update the favorite status locally for the specific blog
@@ -61,6 +58,7 @@ const Blogs = () => {
     localStorage.setItem("favorites", JSON.stringify(updatedFavorites));
   };
 
+  // for search queries filtering blogs
   const filteredBlogs = blogs.filter((blog) => {
     return blog.title.toLowerCase().includes(searchItems.toLowerCase());
   });

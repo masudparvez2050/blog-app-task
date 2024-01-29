@@ -3,9 +3,14 @@ import { Link } from "react-router-dom";
 
 export default function Header() {
   const [isSelect, setIsSelect] = useState(1);
+  const [isOpen, setIsOpen] = useState(false);
 
   const handleSelect = (num) => {
     setIsSelect(num);
+  };
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -100,7 +105,80 @@ export default function Header() {
               </svg>
             </Link>
           </div>
-          <ul className=" flex space-x-4 justify-center font-semibold text-slate-800 ">
+          <div className="hidden md:block">
+            <ul className=" flex space-x-4 justify-center font-semibold text-slate-800  ">
+              <li
+                onClick={() => handleSelect(1)}
+                className={
+                  isSelect === 1
+                    ? "text-[#f37f39] transition-all duration-200 "
+                    : "hover:text-[#f37f39]  transition-all duration-200 "
+                }
+              >
+                <Link to="/">Home</Link>
+              </li>
+              <li
+                onClick={() => handleSelect(2)}
+                className={
+                  isSelect === 2
+                    ? "text-[#f37f39] transition-all duration-200 "
+                    : "hover:text-[#f37f39]  transition-all duration-200 "
+                }
+              >
+                <Link to="/blogs">Blogs</Link>
+              </li>
+              <li
+                onClick={() => handleSelect(3)}
+                className={
+                  isSelect === 3
+                    ? "text-[#f37f39] transition-all duration-200 "
+                    : "hover:text-[#f37f39]  transition-all duration-200 "
+                }
+              >
+                <Link to="/favorites">Favorite Blogs</Link>
+              </li>
+              <li
+                onClick={() => handleSelect(4)}
+                className={
+                  isSelect === 4
+                    ? "text-[#f37f39] transition-all duration-200 "
+                    : "hover:text-[#f37f39]  transition-all duration-200 "
+                }
+              >
+                <Link to="/about">About</Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* -------------------------------  */}
+          <div className="md:hidden mx-2 px-2 mt-2 bg-white rounded-md transition-all duration-500">
+            <button
+              onClick={toggleMenu}
+              className="focus:outline-none transition-all duration-500"
+            >
+              <svg
+                className="h-8 w-8 transition-all duration-500"
+                fill="none"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                {isOpen ? (
+                  <path d="M6 18L18 6M6 6l12 12"></path>
+                ) : (
+                  <path d="M4 7h22M4 15h22M4 23h22"></path>
+                )}
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      {/* -------for responsive menu---------- */}
+      {isOpen ? (
+        <div className="md:hidden bg-white shadow-md">
+          <ul className="flex space-x-4 justify-center font-semibold text-slate-800 border py-4">
             <li
               onClick={() => handleSelect(1)}
               className={
@@ -143,7 +221,9 @@ export default function Header() {
             </li>
           </ul>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
     </div>
   );
 }

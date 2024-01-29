@@ -10,31 +10,26 @@ const BlogDetails = () => {
   const [isFavorite, setIsFavorite] = useState(false);
 
   useEffect(() => {
-    // Fetch blog details from the API
     axios
       .get(`http://localhost:3001/api/blogs/${blogId}`)
       .then((response) => {
         setBlog(response.data);
-        // Check if the current blog is in favorites and update the state accordingly
         const storedFavorites =
           JSON.parse(localStorage.getItem("favorites")) || [];
         setIsFavorite(storedFavorites.includes(response.data.id));
       })
       .catch((error) => console.error("Error fetching blog details:", error));
 
-    // Check if comments are stored in localStorage
     const storedComments = JSON.parse(
       localStorage.getItem(`blog_${blogId}_comments`)
     );
     if (storedComments) {
       setComments(storedComments);
     } else {
-      // Fetch comments from the API
       axios
         .get(`http://localhost:3001/api/blogs/${blogId}/comments`)
         .then((response) => {
           setComments(response.data);
-          // Save comments to localStorage
           localStorage.setItem(
             `blog_${blogId}_comments`,
             JSON.stringify(response.data)

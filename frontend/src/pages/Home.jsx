@@ -19,7 +19,7 @@ const Home = () => {
         </div>
         <div className=" md:w-1/2   flex justify-center items-center">
           <p className="text-white text-2xl md:text-5xl font-semibold border-4 hover:border-[#f37f39] p-4 rounded-lg hover:scale-105 transition-all duration-300 hover:shadow-lg shadow-orange-600">
-            <Link to={`/blogs`}>
+            <Link to="/blogs">
               Go to{" "}
               <span className="text-[#f37f39] drop-shadow-lg ">Blogs</span>
             </Link>
